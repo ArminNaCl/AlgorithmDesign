@@ -31,9 +31,9 @@ class TestGraph(unittest.TestCase):
         v1 = g.addVertex('1', 0)
         v2 = g.addVertex('2', 0)
 
-        g.addEdge('01', 0, v0, v1, False)
-        g.addEdge('12', 0, v1, v2, False)
-        g.addEdge('20', 0, v2, v0, False)
+        g.addEdge('01', 0, v0, v1, True)
+        g.addEdge('12', 0, v1, v2, True)
+        g.addEdge('20', 0, v2, v0, True)
 
         actual = g.isCycle()
         expect = True
@@ -46,9 +46,9 @@ class TestGraph(unittest.TestCase):
         v2 = g.addVertex('2', 0)
         v3 = g.addVertex('3', 0)
 
-        g.addEdge('01', 0, v0, v1, False)
-        g.addEdge('12', 0, v1, v2, False)
-        g.addEdge('23', 0, v2, v3, False)
+        g.addEdge('01', 0, v0, v1, True)
+        g.addEdge('12', 0, v1, v2, True)
+        g.addEdge('23', 0, v2, v3, True)
 
         actual = g.isCycle()
         expect = False
@@ -129,10 +129,9 @@ class TestGraph(unittest.TestCase):
         g.addEdge('35', 14, v5, v3, directed=False)
         g.addEdge('34', 9, v3, v4, directed=False)
         g.addEdge('54', 10, v4, v5, directed=False)
-        actual = g.DFS(v0, 4, [])
-        print(actual)
-        expect = v4
-        print(expect)
+        dfs = g.DFS()
+        actual = [vertex.name for vertex in dfs]
+        expect = ['0', '1', '7', '6', '8', '2', '5', '3', '4']
         return self.assertEqual(actual, expect)
 
     def testDFS2(self):
@@ -186,7 +185,6 @@ class TestGraph(unittest.TestCase):
         bfs = g.BFS(v0)
         expect = [vertex.name for vertex in bfs]
         actual = ['0', '1', '2', '3', '4', '5', '6', '7', '8']
-        print(*bfs)
 
         return self.assertEqual(actual, expect)
 
